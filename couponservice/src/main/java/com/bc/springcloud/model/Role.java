@@ -8,19 +8,13 @@ import java.util.Set;
 @Entity
 public class Role implements GrantedAuthority {
 
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
-
-
-    @Override
-    public String getAuthority() {
-        return null;
-    }
 
     public Long getId() {
         return id;
@@ -38,11 +32,9 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    @Override
+    public String getAuthority() {
+        return name;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }

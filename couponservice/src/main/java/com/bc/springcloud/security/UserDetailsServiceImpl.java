@@ -11,16 +11,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+//    @Autowired
+//    UserRepository userRepository;
+//
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userRepository.findByEmail(username);
+//        if(user==null) {
+//            throw new UsernameNotFoundException("User not found for email" + username);
+//        }
+//        System.out.println("user" + user.getEmail() + "passwd" + user.getPassword() + "Role" + user.getRoles());
+//        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getRoles());
+//    }
+
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
-        if(user==null) {
+
+        User user = userRepo.findByEmail(username);
+        if (user == null) {
             throw new UsernameNotFoundException("User not found for email" + username);
         }
-        System.out.println("user" + user.getEmail() + "passwd" + user.getPassword() + "Role" + user.getRoles());
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getRoles());
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                user.getRoles());
     }
 }
